@@ -38,23 +38,44 @@ class ChannelRepository(context: Context) {
         val previous = load()
         val byUrl = LinkedHashMap<String, Channel>()
         var downloaded = 0
+        var lastError: Exception? = null
         for (lang in Language.values()) {
             val channels = try {
-                val text = String(Http.get(lang.playlistUrl), Charsets.UTF_8)
+                val text = downloadFirst(lang.playlistUrls)
                 M3uParser.parse(text, lang).also { downloaded++ }
             } catch (e: Exception) {
+                lastError = e
                 Log.w(TAG, "Failed to download ${lang.label}", e)
                 previous.filter { it.language == lang }
             }
             // A stream listed under two languages stays in the first one (Malayalam wins).
             channels.filter(Config::accept).forEach { byUrl.putIfAbsent(it.url, it) }
         }
-        if (downloaded == 0) throw IOException("Could not download the playlist. Check the internet connection.")
+        if (downloaded == 0) {
+            val reason = lastError?.let { "${it.javaClass.simpleName}: ${it.message}" } ?: "unknown"
+            throw IOException("Could not download the playlist ($reason)")
+        }
 
         val numbered = assignNumbers(byUrl.values.toList())
         save(numbered)
         prefs.edit().putLong(KEY_LAST_SYNC, System.currentTimeMillis()).apply()
         numbered
+    }
+
+    /** Tries each address in turn and returns the first one that gives a real playlist. */
+    private fun downloadFirst(urls: List<String>): String {
+        var error: Exception? = null
+        for (url in urls) {
+            try {
+                val text = String(Http.get(url), Charsets.UTF_8)
+                if (text.contains("#EXTINF")) return text
+                error = IOException("Not a playlist: $url")
+            } catch (e: Exception) {
+                Log.w(TAG, "Download failed: $url", e)
+                error = e
+            }
+        }
+        throw error ?: IOException("No playlist address")
     }
 
     private fun assignNumbers(channels: List<Channel>): List<Channel> =
