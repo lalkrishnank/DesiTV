@@ -10,8 +10,16 @@ enum class Language(val code: String, val label: String, val firstNumber: Int) {
     HINDI("hin", "Hindi", 2001),
     ENGLISH("eng", "English", 3001);
 
-    /** iptv-org publishes the same index.m3u channels split by broadcast language. */
-    val playlistUrl: String get() = "${Config.PLAYLIST_BASE}/languages/$code.m3u"
+    /**
+     * Same iptv-org playlist from three places. If one address is blocked by the
+     * internet provider, the next one is tried.
+     */
+    val playlistUrls: List<String>
+        get() = listOf(
+            "${Config.PLAYLIST_BASE}/languages/$code.m3u",
+            "https://raw.githubusercontent.com/iptv-org/iptv/gh-pages/languages/$code.m3u",
+            "https://cdn.jsdelivr.net/gh/iptv-org/iptv@gh-pages/languages/$code.m3u",
+        )
 
     companion object {
         fun fromCode(code: String): Language? = values().firstOrNull { it.code == code }
