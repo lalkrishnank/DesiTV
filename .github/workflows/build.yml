@@ -12,17 +12,24 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 17
-      - name: Build
+      - name: Unzip the newest uploaded project zip
         run: |
-          echo "Android SDK: $ANDROID_HOME"
+          ZIP=$(git log -1 --diff-filter=AM --name-only --format= -- '*.zip' | head -1)
+          echo "Using: $ZIP"
+          unzip -q "$ZIP" -d src
+      - name: Build
+        working-directory: src/DesiTV
+        run: |
           yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
           chmod +x gradlew
           ./gradlew assembleRelease --no-daemon --stacktrace
-          cp app/build/outputs/apk/release/app-release.apk DesiTV.apk
+          cp app/build/outputs/apk/release/app-release.apk $GITHUB_WORKSPACE/DesiTV.apk
       - uses: actions/upload-artifact@v4
         with:
           name: DesiTV-apk
