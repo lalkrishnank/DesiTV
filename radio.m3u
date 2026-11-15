@@ -1,0 +1,44 @@
+#EXTM3U
+#EXTINF:-1, Hit 96.7 Fm
+#EXTIMG: https://mm.aiircdn.com/537/5bf548059b593.png
+http://stream.radiojar.com/3yygc0pwuueuv
+
+#EXTINF:-1, Gold Fm
+#EXTIMG: https://www.gold1013fm.com/wp-content/uploads/2018/11/gold.png
+https://stream.radio.co/s00240810b/listen
+
+#EXTINF:-1, Radio Mango
+#EXTIMG: https://img.radiomango.fm/content/dam/radiomango/commonimages/radio-mango-logo-white.svg
+https://listen.openstream.co/4635/audio
+
+#EXTINF:-1, Home 92.2 Fm
+#EXTIMG: https://922homefm.ae/wp-content/uploads/2025/08/Logo-Final-1-2048x1824.png
+https://centova.aarenworld.com/proxy/922radiokhushi/stream
+
+#EXTINF:-1, Akashvani Devikulam
+https://radio.wavespb.com/live/e97acc829da9bf2a/e97acc829da9bf2a.m3u8
+
+#EXTINF:-1, Akashvani Thrissur
+https://radio.wavespb.com/live/f70fdeca437dc326/f70fdeca437dc326.m3u8
+
+#EXTINF:-1, Akashvani Kerala
+https://radio.wavespb.com/live/e97acc829da9bf2a/e97acc829da9bf2a.m3u8
+
+#EXTINF:-1, VB Malayalam (Vividh Bharati)
+https://radio.wavespb.com/live/ad3a8436a329e2d6/ad3a8436a329e2d6.m3u8
+
+#EXTINF:-1, Akashvani Kozhikode Real FM
+https://radio.wavespb.com/live/b69c296065db7627/b69c296065db7627.m3u8
+
+#EXTINF:-1, Akashvani Manjeri
+https://radio.wavespb.com/live/58390a2ed33cea4a/58390a2ed33cea4a.m3u8
+
+#EXTINF:-1, FM Rainbow Kochi
+https://radio.wavespb.com/live/7df6f2a8c3c4d33b/7df6f2a8c3c4d33b.m3u8
+
+#EXTINF:-1, Radio asia 94.7 Fm
+#EXTIMG: https://radiosindia.com/images/radioasia947.jpg
+https://radio.wavespb.com/live/6ff13de7ea9b53d7/6ff13de7ea9b53d7.m3u8
+
+#EXTINF:-1, Asianet Radio
+http://stream.zeno.fm/512rbf1e3qzuv
